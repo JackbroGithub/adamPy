@@ -124,6 +124,31 @@ async def rps(ctx, message:str):
         await ctx.send(f"You won! ADAM picked `{adam_ans}` while you picked `{answer}`!")
       if answer == "📄":
         await ctx.send(f"ADAM won! ADAM picked `{adam_ans}` while you picked `{answer}`!")
+
+@bot.command(name="guess", description="play Da Vinci Code with ADAM!")
+async def guess(ctx):
+  await ctx.send("Guess the number from 1 to 100!")
+  choice = random.randint(1, 100)
+  min_guess = 1
+  max_guess = 100 
+  while True:
+    answer = await bot.wait_for("message")
+    try:
+      answer_int = int(answer.content)
+      if answer_int == choice:
+        await ctx.send(f"Congrats, {ctx.author.display_name}, you got it correct!")
+        break
+      elif answer_int < choice:
+        min_guess = answer_int
+        await ctx.send(f"The number is between {min_guess} ~ {max_guess}")
+      elif answer_int > choice:
+        max_guess = answer_int
+        await ctx.send(f"The number is between {min_guess} ~ {max_guess}")
+    except ValueError:
+      await ctx.send("Please enter a valid number")
+@bot.command(name="dice", description="play roll the dice")
+async def dice(ctx):
+  
 #run
 bot.run(token)
 
