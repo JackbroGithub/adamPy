@@ -15,6 +15,7 @@ Advanced Discord Automated Moderator, aka ADAM, is a python discord bot project.
   from dotenv import load_dotenv
   token = load_dotenv(".env")
   ```
+- Run the code and the bot will show its name on the console, indicating that  it's online.
 ## Installation on Replit
 - Clone or fork the repository
 - Open a new Repl
@@ -28,3 +29,4 @@ Advanced Discord Automated Moderator, aka ADAM, is a python discord bot project.
   ```python
    token = os.environ['TOKEN']
    ```
+- Press the **Run** button and the bot will show its name in the console, indicating that it's online.
