@@ -17,6 +17,7 @@ bot.remove_command("help")
 greetings = ["Hello,", "Hi there,", "Nice to meet you,", "Glad to meet you,", "How are you doing,", "Sup!", "What up, mate!", "Howdy!", "Hallo,"]
 greet_end=["It's a nice day innit?", "Hope you have a nice day!"]
 
+keys=["13431556", "32321424", "41545141146", "14435422456", "82745673228"]
 
 
 #Pre-process
@@ -32,6 +33,30 @@ async def ch_presence():
     await bot.change_presence(activity=discord.Game(name=status))
     await asyncio.sleep(10)
 bot.loop.create_task(ch_presence())
+
+@bot.event
+async def on_member_join(member):
+  welcome_embed = discord.Embed(title="Welcome To The Server", description=f"{member.display_name}, welcome to the server, we can't wait to have a good time with you on the server!")
+  await member.send(embed = welcome_embed)
+  userpas = random.choice(keys)
+  await member.send(f"{member.name} your code is {userpas}")
+
+
+
+@bot.listen("on_message")
+async def on_message(message):
+  if message.author.id == 569216832897286156:
+    return
+  if message.channel.id != 978516230216503337:
+    return
+  if any(word in message.content.lower() for word in keys):
+    await message.channel.purge(limit = 1)
+    verifyRole = discord.utils.get(message.guild.roles, name = "Verified")
+    await message.author.add_roles(verifyRole)
+    await message.channel.send("That's correct!")
+  else:
+    await message.channel.purge(limit = 1)
+    await message.channel.send("Incorrect number")
 
 #bot commands
 @bot.command(name="hello", description="Sends a warm greet to user.")
@@ -51,6 +76,7 @@ async def help(ctx):
       description = "No Description Found."
     em.add_field(name=f"`${command.name}{command.signature if   command.signature is not None else ''}`", value = description)
   await ctx.send(embed = em)
+  
 @bot.command(name="gift", description="sends a gift to a user.")
 async def gift(ctx,user:discord.Member):
   await ctx.reply("Gift is sent to user!")
@@ -71,8 +97,6 @@ async def info(ctx):
   em.add_field(name=f"Check out the Github Repo!", value="https://github.com/JackbroGithub/adamPy")
   await ctx.send(embed=em)
 
-
-    
 
 #mini-games  
 @bot.command(name="rps", description="play rock paper scissors with ADAM!")
