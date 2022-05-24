@@ -24,4 +24,7 @@ Advanced Discord Automated Moderator, aka ADAM, is a python discord bot project.
 - Add the token into the box shown below
 
 ![](https://i.imgur.com/MgFLrE8.png)
-- Within `main.py` add `token = os.environ['TOKEN']`
+- Within `main.py` add the following
+  ```python
+   token = os.environ['TOKEN']
+   ```
