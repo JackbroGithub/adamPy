@@ -27,6 +27,7 @@ Advanced Discord Automated Moderator, aka ADAM, is a python discord bot project.
 ![](https://i.imgur.com/MgFLrE8.png)
 - Within `main.py` add the following
   ```python
+  
    token = os.environ['TOKEN']
    ```
 - Press the **Run** button and the bot will show its name in the console, indicating that it's online.
@@ -43,4 +44,4 @@ For those who want to contribute to this project, here are some following remind
 - Use `await asyncio.sleep()` instead of `time.sleep()` since `time.sleep()` stops the entire code, leading to various API request issues.
 - Keep the code as clean as possible, use comment blocks to seperate functions of different categories.
 
-*And as always,   ***Happy Coding ~****
+And as always,   ***Happy Coding ~***
