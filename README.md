@@ -38,7 +38,10 @@ Advanced Discord Automated Moderator, aka ADAM, is a python discord bot project.
 - `$ping`: The bot will reply **pong** to the user.
 - `$gift`: Sends a gift to the direct message of the mentioned use. (*use at your own risk*)
 - `$clear`: Removes 5 lines of text in a text channel.
-- `$rps`: Play rock-paper-scissors with ADAM
+- `$info`: Shows the information of the current ADAM build.
+- `$rps`: Play rock-paper-scissors with ADAM.
+- `$guess`: Play Da Vinci Code with ADAM.
+- `$dice`: Play roll the dice.
 ## Contributing
 For those who want to contribute to this project, here are some following reminders
 - Use `async` and `await` programming for new defined functions
