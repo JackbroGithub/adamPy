@@ -43,6 +43,7 @@ Advanced Discord Automated Moderator, aka ADAM, is a python discord bot project.
 - `$guess`: Play Da Vinci Code with ADAM.
 - `$dice`: Play roll the dice.
 - `$wanted`: Posts a wanted picture in text channel and applies the "Wanted" role to tagged user.
+- `$meme`: Sends a random meme from Reddit to user.
 ## Contributing
 For those who want to contribute to this project, here are some following reminders
 - Use `async` and `await` programming for new defined functions

@@ -3,24 +3,21 @@ from discord.ext import commands
 import os
 import random
 import asyncio
+import json
 from PIL import Image
 from io import BytesIO
-
+from requests import get
 #version
 version = "0"
 #time
 date = "5/24/2022"
-
+#setup
 token = os.environ['TOKEN']
-
 bot = commands.Bot(command_prefix="$",intents = discord.Intents.all())
 bot.remove_command("help")
-
 greetings = ["Hello,", "Hi there,", "Nice to meet you,", "Glad to meet you,", "How are you doing,", "Sup!", "What up, mate!", "Howdy!", "Hallo,"]
 greet_end=["It's a nice day innit?", "Hope you have a nice day!"]
-
 keys=["13431556", "32321424", "41545141146", "14435422456", "82745673228"]
-
 
 #Pre-process
 @bot.event
@@ -115,6 +112,14 @@ async def wanted(ctx, user:discord.Member = None):
   await ctx.reply(file = discord.File("profile.jpg"))
   await user.edit(roles=[])
   await user.add_roles(wantedRole)
+
+@bot.command()
+async def meme(ctx):
+  content = get("https://meme-api.herokuapp.com/gimme").text
+  data = json.loads(content,)
+  meme = discord.Embed(title=f"{data['title']}", color = discord.Color.random()).set_image(url=f"{data['url']}")
+  await ctx.reply(embed = meme)
+
 #mini-games  
 @bot.command(name="rps", description="play rock paper scissors with ADAM!")
 async def rps(ctx, message:str):
@@ -179,6 +184,7 @@ async def dice(ctx, amount:int):
         await ctx.send(f"All of your dice have the value of {value1}!")
     elif value1 != value2 and value1 != value3 and value2 != value3:
       await ctx.send(f"None of the values are the same, they're {value1}, {value2}, {value3}")
+      
 #run
 bot.run(token)
 
