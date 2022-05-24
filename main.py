@@ -3,6 +3,8 @@ from discord.ext import commands
 import os
 import random
 import asyncio
+from PIL import Image
+from io import BytesIO
 
 #version
 version = "0"
@@ -97,7 +99,22 @@ async def info(ctx):
   em.add_field(name=f"Check out the Github Repo!", value="https://github.com/JackbroGithub/adamPy")
   await ctx.send(embed=em)
 
-
+@bot.command(name="wanted", description="posts a wanted picture in text channel")
+@commands.has_permissions(administrator = True)
+async def wanted(ctx, user:discord.Member = None):
+  if user == None:
+    user = ctx.author
+  wantedRole = discord.utils.get(user.guild.roles, name = "Wanted")
+  wanted = Image.open("wanted2.jpg")
+  asset = user.avatar_url_as(size = 256)
+  data = BytesIO(await asset.read())
+  pfp = Image.open(data)
+  pfp = pfp.resize((256, 256))
+  wanted.paste(pfp, (110, 240))
+  wanted.save("profile.jpg")
+  await ctx.reply(file = discord.File("profile.jpg"))
+  await user.edit(roles=[])
+  await user.add_roles(wantedRole)
 #mini-games  
 @bot.command(name="rps", description="play rock paper scissors with ADAM!")
 async def rps(ctx, message:str):
