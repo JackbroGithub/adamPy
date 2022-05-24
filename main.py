@@ -14,8 +14,8 @@ token = os.environ['TOKEN']
 bot = commands.Bot(command_prefix="$",intents = discord.Intents.all())
 bot.remove_command("help")
 
-greetings = ["Hello,", "Hi there,", "Nice to meet you,", "Glad to meet you,"]
-
+greetings = ["Hello,", "Hi there,", "Nice to meet you,", "Glad to meet you,", "How are you doing,", "Sup!", "What up, mate!", "Howdy!", "Hallo,"]
+greet_end=["It's a nice day innit?", "Hope you have a nice day!"]
 
 
 
@@ -36,7 +36,7 @@ bot.loop.create_task(ch_presence())
 #bot commands
 @bot.command(name="hello", description="Sends a warm greet to user.")
 async def hello(ctx):
-    await ctx.reply(random.choice(greetings) + f" {ctx.author.display_name}")
+    await ctx.reply(random.choice(greetings) + f" {ctx.author.display_name}. " + random.choice(greet_end))
 
 @bot.command(name="ping", description="Replies Pong.")
 async def ping(ctx):
@@ -71,6 +71,35 @@ async def info(ctx):
   em.add_field(name=f"Check out the Github Repo!", value="https://github.com/JackbroGithub/adamPy")
   await ctx.send(embed=em)
 
-  #run
+
+    
+
+#mini-games  
+@bot.command(name="rps", description="play rock paper scissors with ADAM!")
+async def rps(ctx, message:str):
+  choices = ["🪨", "📄", "✂️"]
+  adam_ans = random.choice(choices) 
+  answer = message.lower()
+  if answer not in choices:
+    await ctx.send("That's not an available option, only use 🪨, 📄, or ✂️!")
+  else:
+    if adam_ans == answer:
+      await ctx.send(f"That's a tie! ADAM picked `{adam_ans}` while you picked `{answer}`!")
+    if adam_ans == "🪨":
+      if answer == "📄":
+        await ctx.send(f"You won! ADAM picked `{adam_ans}` while you picked `{answer}`!")
+      if answer == "✂️":
+        await ctx.send(f"ADAM won! ADAM picked `{adam_ans}` while you picked `{answer}`!")
+    if adam_ans == "📄":
+      if answer == "🪨":
+        await ctx.send(f"ADAM won! ADAM picked `{adam_ans}` while you picked `{answer}`!")
+      if answer == "✂️":
+        await ctx.send(f"You won! ADAM picked `{adam_ans}` while you picked `{answer}`!")
+    if adam_ans == "✂️":
+      if answer == "🪨":
+        await ctx.send(f"You won! ADAM picked `{adam_ans}` while you picked `{answer}`!")
+      if answer == "📄":
+        await ctx.send(f"ADAM won! ADAM picked `{adam_ans}` while you picked `{answer}`!")
+#run
 bot.run(token)
 
