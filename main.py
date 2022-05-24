@@ -147,8 +147,21 @@ async def guess(ctx):
     except ValueError:
       await ctx.send("Please enter a valid number")
 @bot.command(name="dice", description="play roll the dice")
-async def dice(ctx):
-  
+async def dice(ctx, amount:int):
+  for i in range(1, amount+1, 1):
+    dice1 = [1, 2, 3, 4, 5, 6]
+    dice2 = [1, 2, 3, 4, 5, 6]
+    dice3 = [1, 2, 3, 4, 5, 6]
+    value1 = random.choice(dice1)
+    value2 = random.choice(dice2)
+    value3 = random.choice(dice3)
+    #the value of the two dices are the same
+    if value1 == value2 or value1 == value3 or value2 == value3:
+      await ctx.send(f"Two same points! The values of all the dice are {value1}, {value2}, {value3}")
+    if value1 == value2 == value3:
+        await ctx.send(f"All of your dice have the value of {value1}!")
+    elif value1 != value2 and value1 != value3 and value2 != value3:
+      await ctx.send(f"None of the values are the same, they're {value1}, {value2}, {value3}")
 #run
 bot.run(token)
 
