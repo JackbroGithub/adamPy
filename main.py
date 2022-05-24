@@ -19,13 +19,11 @@ greetings = ["Hello,", "Hi there,", "Nice to meet you,", "Glad to meet you,"]
 
 
 
-#normal commands
+#Pre-process
 @bot.event
 async def on_ready():
     print(f"Bot logged in as {bot.user}")
     
-
-
 async def ch_presence():
   await bot.wait_until_ready()
   statuses = [f"Try out $hello!", f"Confused? Try $help"]
@@ -35,6 +33,7 @@ async def ch_presence():
     await asyncio.sleep(10)
 bot.loop.create_task(ch_presence())
 
+#bot commands
 @bot.command(name="hello", description="Sends a warm greet to user.")
 async def hello(ctx):
     await ctx.reply(random.choice(greetings) + f" {ctx.author.display_name}")
@@ -71,6 +70,7 @@ async def info(ctx):
   em.add_field(name=f"Build published date", value = date)
   em.add_field(name=f"Check out the Github Repo!", value="https://github.com/JackbroGithub/adamPy")
   await ctx.send(embed=em)
-#run
+
+  #run
 bot.run(token)
 

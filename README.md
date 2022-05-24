@@ -30,3 +30,17 @@ Advanced Discord Automated Moderator, aka ADAM, is a python discord bot project.
    token = os.environ['TOKEN']
    ```
 - Press the **Run** button and the bot will show its name in the console, indicating that it's online.
+
+## Bot Commands
+- `$help`: Sends an embed of the guides for the individual commands.
+- `$hello`: Sends a random greet to the user.
+- `$ping`: The bot will reply **pong** to the user.
+- `$gift`: Sends a gift to the direct message of the mentioned use (*use at your own risk*)
+
+## Contributing
+For those who want to contribute to this project, here are some following reminders
+- Use `async` and `await` programming for new defined functions
+- Use `await asyncio.sleep()` instead of `time.sleep()` since `time.sleep()` stops the entire code, leading to various API request issues.
+- Keep the code as clean as possible, use comment blocks to seperate functions of different categories.
+
+*And as always,   ***Happy Coding ~****
