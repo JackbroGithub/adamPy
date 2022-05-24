@@ -1,7 +1,7 @@
 # ADAM
 Advanced Discord Automated Moderator, aka ADAM, is a python discord bot project. This bot is developed using [discord.py](https://github.com/Rapptz/discord.py) on [Replit](https://replit.com)
 
-![ADAMLOGO]()
+
 
 # Setup
 ## Local Installation
