@@ -44,4 +44,4 @@ For those who want to contribute to this project, here are some following remind
 - Use `await asyncio.sleep()` instead of `time.sleep()` since `time.sleep()` stops the entire code, leading to various API request issues.
 - Keep the code as clean as possible, use comment blocks to seperate functions of different categories.
 
-And as always,   ***Happy Coding ~***
+And as always,   **Happy Coding ~**
