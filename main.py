@@ -7,6 +7,7 @@ import json
 from PIL import Image
 from io import BytesIO
 from requests import get
+import keep_alive
 #version
 version = "0"
 #time
@@ -16,7 +17,7 @@ token = os.environ['TOKEN']
 bot = commands.Bot(command_prefix="$",intents = discord.Intents.all())
 bot.remove_command("help")
 greetings = ["Hello,", "Hi there,", "Nice to meet you,", "Glad to meet you,", "How are you doing,", "Sup!", "What up, mate!", "Howdy!", "Hallo,"]
-greet_end=["It's a nice day innit?", "Hope you have a nice day!"]
+greet_end=["It's a nice day innit?", "Hope you have a nice day!", "It's my pleasure to meet you!", "Enjoy your day!", "Cheers mate!", "Wie geht's?"]
 keys=["13431556", "32321424", "41545141146", "14435422456", "82745673228"]
 
 #Pre-process
@@ -53,9 +54,13 @@ async def on_message(message):
     verifyRole = discord.utils.get(message.guild.roles, name = "Verified")
     await message.author.add_roles(verifyRole)
     await message.channel.send("That's correct!")
+    await asyncio.sleep(5)
+    await message.channel.purge(limit = 1)
   else:
     await message.channel.purge(limit = 1)
     await message.channel.send("Incorrect number")
+    await asyncio.sleep(5)
+    await message.channle.purge(limit = 1)
 
 #bot commands
 @bot.command(name="hello", description="Sends a warm greet to user.")
@@ -113,13 +118,17 @@ async def wanted(ctx, user:discord.Member = None):
   await user.edit(roles=[])
   await user.add_roles(wantedRole)
 
-@bot.command()
+@bot.command(name="meme", description="sends a random meme from Reddit")
 async def meme(ctx):
   content = get("https://meme-api.herokuapp.com/gimme").text
   data = json.loads(content,)
   meme = discord.Embed(title=f"{data['title']}", color = discord.Color.random()).set_image(url=f"{data['url']}")
   await ctx.reply(embed = meme)
 
+@bot.command(name="funny", description="sends a random funny quote")
+async def funny(ctx):
+  funny_q = ["I’m sick of following my dreams, man. I’m just going to ask where they’re going and hook up with ’em later.", "Gentlemen, you can’t fight in here. This is the war room.","My mother always used to say: The older you get, the better you get, unless you’re a banana.", "Halloween is the beginning of the holiday shopping season. That’s for women. The beginning of the holiday shopping season for men is Christmas Eve.", "Before you criticize someone, you should walk a mile in their shoes. That way when you criticize them, you are a mile away from them and you have their shoes.", 'Bob: “Looks like you’ve been missing a lot of work lately.”Peter: “I wouldn’t say I’ve been missing it, Bob.”', "Clothes make the man. Naked people have little or no influence in society.", "Before you marry a person, you should first make them use a computer with slow Internet to see who they really are.", "I love being married. It’s so great to find that one special person you want to annoy for the rest of your life.", "Ned, I would love to stand here and talk with you—but I’m not going to."]
+  await ctx.send(random.choice(funny_q))
 #mini-games  
 @bot.command(name="rps", description="play rock paper scissors with ADAM!")
 async def rps(ctx, message:str):
@@ -186,5 +195,6 @@ async def dice(ctx, amount:int):
       await ctx.send(f"None of the values are the same, they're {value1}, {value2}, {value3}")
       
 #run
+keep_alive.keep_alive()
 bot.run(token)
 
