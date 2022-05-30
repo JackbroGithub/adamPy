@@ -1,12 +1,18 @@
 import discord
-from discord.ext import commands
 import os
 import random
 import asyncio
 import json
+import youtube_dl
+import functools
+import itertools
+#import certain packages
 from PIL import Image
 from io import BytesIO
 from requests import get
+from async_timeout import timeout
+from discord.ext import commands
+#import files
 import keep_alive
 #version
 version = "0"
@@ -34,12 +40,13 @@ async def ch_presence():
     await asyncio.sleep(10)
 bot.loop.create_task(ch_presence())
 
+
 @bot.event
 async def on_member_join(member):
   welcome_embed = discord.Embed(title="Welcome To The Server", description=f"{member.display_name}, welcome to the server, we can't wait to have a good time with you on the server!")
   await member.send(embed = welcome_embed)
   userpas = random.choice(keys)
-  await member.send(f"{member.name} your code is {userpas}")
+  await member.send(f"{member.name} your code is ||{userpas}||")
 
 
 
@@ -193,8 +200,11 @@ async def dice(ctx, amount:int):
         await ctx.send(f"All of your dice have the value of {value1}!")
     elif value1 != value2 and value1 != value3 and value2 != value3:
       await ctx.send(f"None of the values are the same, they're {value1}, {value2}, {value3}")
-      
+
+
+
+              
 #run
-keep_alive.keep_alive()
 bot.run(token)
+
 
